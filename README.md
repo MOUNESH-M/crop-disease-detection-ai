@@ -5,10 +5,10 @@ A deep learning project that detects crop leaf diseases using Convolutional Neur
 This project uses Convolutional Neural Networks (CNNs) to detect crop diseases from leaf images using the PlantVillage dataset.
 
 ## Tech Stack
-- Python (Google Colab)
+- Python
 - TensorFlow / Keras
 - CNN Model
-- Flask (optional, for deployment)
+- Flask
 - GitHub
 
 ## Project Structure

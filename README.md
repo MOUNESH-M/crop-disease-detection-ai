@@ -26,4 +26,5 @@ Classify images of plant leaves into categories like:
 
 ## Status
 Day 1: Dataset setup and exploration
-More updates coming soon!
+Day 2: Data Pre-processing and visualization
+Day 3: comming soon..!

@@ -25,6 +25,7 @@ Classify images of plant leaves into categories like:
 - Healthy Leaves
 
 ## Status
-Day 1: Dataset setup and exploration
-Day 2: Data Pre-processing and visualization
-Day 3: comming soon..!
+- Day 1: Dataset setup and exploration
+- Day 2: Data Pre-processing and visualization
+- Day 3: CNN model built, trained and evaluated
+- Day 4: Day 4: Model evaluation, saving, and custom image prediction

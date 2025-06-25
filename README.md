@@ -11,12 +11,6 @@ This project uses Convolutional Neural Networks (CNNs) to detect crop diseases f
 - Flask
 - GitHub
 
-## Project Structure
-crop-disease-detection-ai/
-├── Crop_Disease_Detection_AI.ipynb
-├── README.md
-└── plant_disease_dataset/
-
 ## Goal
 Classify images of plant leaves into categories like:
 - Tomato - Early Blight

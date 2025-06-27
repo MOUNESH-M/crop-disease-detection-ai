@@ -1,25 +1,56 @@
-# crop-disease-detection-ai
-A deep learning project that detects crop leaf diseases using Convolutional Neural Networks (CNNs) and the PlantVillage dataset. Built with TensorFlow, Keras, and deployed using Flask.
+# Smart Crop Disease Detection AI
 
-# Smart Crop Disease Detection using AI
-This project uses Convolutional Neural Networks (CNNs) to detect crop diseases from leaf images using the PlantVillage dataset.
+An AI-powered web application that detects diseases in crop leaves using a Convolutional Neural Network (CNN) model. The application helps farmers and agricultural researchers identify plant diseases early by analyzing uploaded leaf images.
+
+---
 
 ## Tech Stack
 - Python
 - TensorFlow / Keras
-- CNN Model
-- Flask
-- GitHub
+- Flask (Web Framework)
+- HTML / CSS (Frontend)
+- Google Colab (Model Training)
+- GitHub (Version Control)
 
-## Goal
-Classify images of plant leaves into categories like:
-- Tomato - Early Blight
-- Potato - Late Blight
-- Corn - Rust
-- Healthy Leaves
+---
 
-## Status
-- Day 1: Dataset setup and exploration
-- Day 2: Data Pre-processing and visualization
-- Day 3: CNN model built, trained and evaluated
-- Day 4: Day 4: Model evaluation, saving, and custom image prediction
+## Project Structure
+```text
+crop-disease-detection-ai/
+├── Crop_Disease_Detection_AI.ipynb       # Model training notebook
+├── app.py                                # Flask web application
+├── templates/
+│   └── index.html                        # Web UI
+├── static/
+│   ├── css/
+│   │   └── style.css                     # Web styling
+├── requirements.txt                      # Python dependencies
+└── README.md                             # Project documentation
+
+## Features
+-Upload crop leaf images via a simple web interface
+-Real-time disease prediction
+-Multi-class classification (15 plant disease categories)
+-User-friendly interface with clean design
+
+---
+
+## Classes Detected
+-Pepper__bell___Bacterial_spot
+-Pepper__bell___healthy
+-Potato___Early_blight
+-Potato___Late_blight
+-Potato___healthy
+-Tomato_Bacterial_spot
+-Tomato_Early_blight
+-Tomato_Late_blight
+-Tomato_Leaf_Mold
+-Tomato_Septoria_leaf_spot
+-Tomato_Spider_mites_Two_spotted_spider_mite
+-Tomato__Target_Spot
+-Tomato__Tomato_YellowLeaf__Curl_Virus
+-Tomato__Tomato_mosaic_virus
+-Tomato_healthy
+---
+## By
+Mounesh M

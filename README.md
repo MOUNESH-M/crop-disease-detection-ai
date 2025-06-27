@@ -26,6 +26,7 @@ crop-disease-detection-ai/
 │   │   └── style.css                     # Web styling
 ├── requirements.txt                      # Python dependencies
 └── README.md                             # Project documentation
+```
 
 ## Features
 -Upload crop leaf images via a simple web interface

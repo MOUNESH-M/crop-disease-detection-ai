@@ -1,0 +1,88 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.full-page {
+    min-height: 100vh;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4f0f8 100%);
+}
+
+.header {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.file-upload-wrapper {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.file-upload-info {
+    transition: all 0.3s ease;
+}
+
+.card {
+    border-radius: 0.5rem;
+}
+
+.image-preview {
+    background-color: #f8f9fa;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background-color: #2c7be5;
+    border-color: #2c7be5;
+    padding: 0.5rem 1.5rem;
+}
+
+.btn-primary:hover {
+    background-color: #1a68d1;
+    border-color: #1a68d1;
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.results-section {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.progress {
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    transition: width 0.6s ease;
+}
+
+@media (max-width: 768px) {
+    .full-page {
+        padding: 1rem;
+    }
+    
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .results-section {
+        padding: 1rem;
+    }
+}

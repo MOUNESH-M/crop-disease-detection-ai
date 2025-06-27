@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Crop Health Analyzer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<div class="full-page d-flex align-items-center justify-content-center">
+    <div class="container text-center shadow-lg p-4 p-md-5 bg-white rounded-3" style="max-width: 800px;">
+        <div class="header mb-4">
+            <i class="fas fa-leaf text-success mb-3" style="font-size: 3rem;"></i>
+            <h1 class="mb-3">Smart Crop Health Analyzer</h1>
+            <p class="text-muted">Upload an image of a crop leaf for disease detection and analysis</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="mt-4" id="uploadForm">
+            <div class="file-upload-wrapper mb-4">
+                <label for="fileUpload" class="form-label visually-hidden">Select image</label>
+                <input type="file" class="form-control" id="fileUpload" name="file" accept="image/*" required>
+                <div class="file-upload-info mt-2 text-muted small">
+                    Supported formats: JPG, PNG (Max 5MB)
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg px-4">
+                <i class="fas fa-search me-2"></i>Analyze
+            </button>
+        </form>
+
+        <div id="loading" class="mt-5" style="display: none;">
+            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3 text-muted">Processing your image, please wait...</p>
+        </div>
+
+        {% if error %}
+            <div class="alert alert-danger mt-4 fade-in">
+                <i class="fas fa-exclamation-circle me-2"></i>{{ error }}
+            </div>
+        {% endif %}
+
+        {% if image_url %}
+            <div class="results-section mt-5 fade-in">
+                <h4 class="mb-4">Analysis Results</h4>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <div class="image-preview border rounded p-2">
+                            <img src="{{ image_url }}" alt="Uploaded crop leaf" class="img-fluid rounded">
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-md-start">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">
+                                    <i class="fas fa-clipboard-check me-2"></i>Diagnosis
+                                </h5>
+                                <div class="mb-3">
+                                    <p class="mb-1"><strong>Condition:</strong></p>
+                                    <p class="lead">{{ prediction }}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <p class="mb-1"><strong>Confidence Level:</strong></p>
+                                    <div class="progress" style="height: 10px;">
+                                        {% if '%' in confidence %}
+                                            <div class="progress-bar bg-success" role="progressbar" 
+                                                 style="width: {{ confidence.split('%')[0] }}%" 
+                                                 aria-valuenow="{{ confidence.split('%')[0] }}" 
+                                                 aria-valuemin="0" 
+                                                 aria-valuemax="100"></div>
+                                        {% else %}
+                                            <div class="progress-bar bg-success" role="progressbar" 
+                                                 style="width: {{ confidence * 100 }}%" 
+                                                 aria-valuenow="{{ confidence * 100 }}" 
+                                                 aria-valuemin="0" 
+                                                 aria-valuemax="100"></div>
+                                        {% endif %}
+                                    </div>
+                                    <small class="text-muted">
+                                        {% if '%' in confidence %}
+                                            {{ confidence }}
+                                        {% else %}
+                                            {{ (confidence * 100)|round(1) }}%
+                                        {% endif %}
+                                        confidence
+                                    </small>
+                                </div>
+                                <div class="mt-4">
+                                    <button class="btn btn-outline-secondary btn-sm me-2">
+                                        <i class="fas fa-info-circle me-1"></i>More details
+                                    </button>
+                                    <button class="btn btn-outline-success btn-sm">
+                                        <i class="fas fa-book me-1"></i>Treatment options
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', function() {
+        document.getElementById('loading').style.display = 'block';
+    });
+    
+    // Enhance file input display
+    document.getElementById('fileUpload').addEventListener('change', function(e) {
+        const fileName = e.target.files[0]?.name || 'No file selected';
+        const label = this.nextElementSibling;
+        label.textContent = `Selected: ${fileName}`;
+        label.classList.remove('text-muted');
+        label.classList.add('text-primary');
+    });
+</script>
+
+</body>
+</html>

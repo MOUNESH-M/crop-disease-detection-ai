@@ -53,5 +53,9 @@ crop-disease-detection-ai/
 - Tomato__Tomato_mosaic_virus
 -Tomato_healthy
 ---
+##Live demo
+[Click Here to View the Live App](https://crop-disease-detection-ai-production.up.railway.app/)
+
+---
 ## By
 Mounesh M

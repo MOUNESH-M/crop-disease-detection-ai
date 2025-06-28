@@ -1,3 +1,6 @@
-flask
+Flask
+gunicorn
 tensorflow
+numpy
 pillow
+gdown

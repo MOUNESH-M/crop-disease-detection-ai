@@ -1,16 +1,25 @@
-from flask import Flask, request, render_template
+from flask import Flask, render_template, request
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 import numpy as np
-from PIL import Image
 import os
+import gdown
 
 app = Flask(__name__)
 
-# Load trained model
-model = load_model('plant_disease_cnn_model.keras')
+MODEL_PATH = 'crop_disease_detector_model.keras'
+GOOGLE_DRIVE_URL = 'https://drive.google.com/uc?id=1XFgoi3K_TiMxI4c1i9KlH5CcT0Kgg96M'
 
-# Class labels (update with your trained dataset labels)
+# Download model if not present
+if not os.path.exists(MODEL_PATH):
+    print('Downloading model from Google Drive...')
+    gdown.download(GOOGLE_DRIVE_URL, MODEL_PATH, quiet=False, fuzzy=True)
+    print('Model downloaded successfully!')
+
+# Load the model
+model = load_model(MODEL_PATH)
+
+# Class names based on your dataset
 class_names = [
     'Pepper__bell___Bacterial_spot',
     'Pepper__bell___healthy',
@@ -31,36 +40,36 @@ class_names = [
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    prediction = None
+    confidence = None
+    image_url = None
+    error = None
+
     if request.method == 'POST':
-        if 'file' not in request.files:
-            return render_template('index.html', error='No file selected.')
+        try:
+            file = request.files['file']
+            if file:
+                file_path = 'static/uploads/' + file.filename
+                os.makedirs('static/uploads/', exist_ok=True)
+                file.save(file_path)
+                image_url = '/' + file_path
 
-        file = request.files['file']
+                img = image.load_img(file_path, target_size=(128, 128))
+                img_array = image.img_to_array(img)
+                img_array = np.expand_dims(img_array, axis=0)
+                img_array = img_array / 255.0
 
-        if file.filename == '':
-            return render_template('index.html', error='Please select a file.')
+                prediction_probs = model.predict(img_array)[0]
+                predicted_index = np.argmax(prediction_probs)
+                predicted_class = class_names[predicted_index]
+                prediction = predicted_class
+                confidence = f"{prediction_probs[predicted_index] * 100:.2f}%"
 
-        # Save file temporarily
-        file_path = 'static/temp.jpg'
-        file.save(file_path)
+        except Exception as e:
+            error = str(e)
 
-        # Preprocess image
-        img = Image.open(file_path)
-        img = img.resize((128, 128))
-        img_array = image.img_to_array(img) / 255.0
-        img_array = np.expand_dims(img_array, axis=0)
+    return render_template('index.html', prediction=prediction, confidence=confidence, image_url=image_url, error=error)
 
-        # Predict
-        prediction = model.predict(img_array)
-        predicted_class = class_names[np.argmax(prediction)]
-        confidence = float(np.max(prediction)) * 100
-
-        return render_template('index.html', 
-                               prediction=predicted_class, 
-                               confidence=f"{confidence:.2f}%",
-                               image_url=file_path)
-
-    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -8,7 +8,7 @@ import gdown
 app = Flask(__name__)
 
 MODEL_PATH = 'crop_disease_detector_model.keras'
-GOOGLE_DRIVE_URL = 'https://drive.google.com/uc?id=1XFgoi3K_TiMxI4c1i9KlH5CcT0Kgg96M'
+GOOGLE_DRIVE_URL = 'https://drive.google.com/uc?id=1THCcQs9f-lBuZSiFtusSACyrO9z7LXBo'
 
 # Download model if not present
 if not os.path.exists(MODEL_PATH):
